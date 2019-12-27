@@ -1,0 +1,57 @@
+entity Account {
+	name String required
+    description String required
+    creationDate Instant required
+}
+
+entity Transaction {
+	name String required
+    amount Integer required
+    date Instant required
+    initial Boolean required
+}
+
+entity RecurringTransaction {
+	name String required
+    amount Integer required
+    dateOfMonth Integer required
+}
+
+entity Balance {
+	date Instant required
+    amount Integer required
+}
+
+entity Owner {
+	name String required
+}
+
+entity Category {
+	name String required
+}
+
+relationship OneToOne {
+	Transaction{fromAccout} to Account
+    Transaction{toAccount} to Account
+    RecurringTransaction{fromAccout} to Account
+    RecurringTransaction{toAccount} to Account
+    Balance{account} to Account
+}
+
+relationship OneToMany {
+	Owner to Account
+    Category to Transaction
+}
+
+// Set pagination options
+paginate RecurringTransaction, Account, Balance with infinite-scroll
+paginate Transaction with pagination
+
+// Use Data Transfert Objects (DTO)
+// dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl
+
+// Set an angular suffix
+// angularSuffix * with mySuffix
