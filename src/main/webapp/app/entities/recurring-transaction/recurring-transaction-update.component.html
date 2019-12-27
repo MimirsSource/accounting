@@ -1,0 +1,79 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-recurring-transaction-heading" jhiTranslate="accountingApp.recurringTransaction.home.createOrEditLabel">Create or edit a Recurring Transaction</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="accountingApp.recurringTransaction.name" for="field_name">Name</label>
+                    <input type="text" class="form-control" name="name" id="field_name"
+                           formControlName="name"/>
+                    <div *ngIf="editForm.get('name')!.invalid && (editForm.get('name')!.dirty || editForm.get('name')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('name')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="accountingApp.recurringTransaction.amount" for="field_amount">Amount</label>
+                    <input type="number" class="form-control" name="amount" id="field_amount"
+                           formControlName="amount"/>
+                    <div *ngIf="editForm.get('amount')!.invalid && (editForm.get('amount')!.dirty || editForm.get('amount')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('amount')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('amount')?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="accountingApp.recurringTransaction.dateOfMonth" for="field_dateOfMonth">Date Of Month</label>
+                    <input type="number" class="form-control" name="dateOfMonth" id="field_dateOfMonth"
+                           formControlName="dateOfMonth"/>
+                    <div *ngIf="editForm.get('dateOfMonth')!.invalid && (editForm.get('dateOfMonth')!.dirty || editForm.get('dateOfMonth')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('dateOfMonth')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('dateOfMonth')?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="accountingApp.recurringTransaction.fromLedger" for="field_fromLedger">From Ledger</label>
+                    <select class="form-control" id="field_fromLedger" name="fromLedger" formControlName="fromLedger">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="ledgerOption.id === editForm.get('fromLedger')!.value?.id ? editForm.get('fromLedger')!.value : ledgerOption" *ngFor="let ledgerOption of fromledgers; trackBy: trackById">{{ledgerOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="accountingApp.recurringTransaction.toLedger" for="field_toLedger">To Ledger</label>
+                    <select class="form-control" id="field_toLedger" name="toLedger" formControlName="toLedger">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="ledgerOption.id === editForm.get('toLedger')!.value?.id ? editForm.get('toLedger')!.value : ledgerOption" *ngFor="let ledgerOption of toledgers; trackBy: trackById">{{ledgerOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,71 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="accountingApp.recurringTransaction.home.title">Recurring Transactions</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-recurring-transaction" [routerLink]="['/recurring-transaction/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="accountingApp.recurringTransaction.home.createLabel">
+            Create a new Recurring Transaction
+            </span>
+        </button>
+    </h2>
+    <jhi-alert-error></jhi-alert-error>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="alert alert-warning" *ngIf="recurringTransactions?.length === 0">
+        <span jhiTranslate="accountingApp.recurringTransaction.home.notFound">No recurringTransactions found</span>
+    </div>
+    <div class="table-responsive" *ngIf="recurringTransactions?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="reset.bind(this)">
+            <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="name"><span jhiTranslate="accountingApp.recurringTransaction.name">Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="amount"><span jhiTranslate="accountingApp.recurringTransaction.amount">Amount</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="dateOfMonth"><span jhiTranslate="accountingApp.recurringTransaction.dateOfMonth">Date Of Month</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="fromLedger.id"><span jhiTranslate="accountingApp.recurringTransaction.fromLedger">From Ledger</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="toLedger.id"><span jhiTranslate="accountingApp.recurringTransaction.toLedger">To Ledger</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tr *ngFor="let recurringTransaction of recurringTransactions ;trackBy: trackId">
+                <td><a [routerLink]="['/recurring-transaction', recurringTransaction.id, 'view' ]">{{recurringTransaction.id}}</a></td>
+                <td>{{recurringTransaction.name}}</td>
+                <td>{{recurringTransaction.amount}}</td>
+                <td>{{recurringTransaction.dateOfMonth}}</td>
+                <td>
+                    <div *ngIf="recurringTransaction.fromLedger">
+                        <a [routerLink]="['/ledger', recurringTransaction.fromLedger?.id, 'view' ]" >{{recurringTransaction.fromLedger?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="recurringTransaction.toLedger">
+                        <a [routerLink]="['/ledger', recurringTransaction.toLedger?.id, 'view' ]" >{{recurringTransaction.toLedger?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group">
+                        <button type="submit"
+                                [routerLink]="['/recurring-transaction', recurringTransaction.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/recurring-transaction', recurringTransaction.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit" (click)="delete(recurringTransaction)"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

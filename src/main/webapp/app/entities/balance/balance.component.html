@@ -1,0 +1,63 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="accountingApp.balance.home.title">Balances</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-balance" [routerLink]="['/balance/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="accountingApp.balance.home.createLabel">
+            Create a new Balance
+            </span>
+        </button>
+    </h2>
+    <jhi-alert-error></jhi-alert-error>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="alert alert-warning" *ngIf="balances?.length === 0">
+        <span jhiTranslate="accountingApp.balance.home.notFound">No balances found</span>
+    </div>
+    <div class="table-responsive" *ngIf="balances?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="reset.bind(this)">
+            <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="date"><span jhiTranslate="accountingApp.balance.date">Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="amount"><span jhiTranslate="accountingApp.balance.amount">Amount</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="ledger.id"><span jhiTranslate="accountingApp.balance.ledger">Ledger</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tr *ngFor="let balance of balances ;trackBy: trackId">
+                <td><a [routerLink]="['/balance', balance.id, 'view' ]">{{balance.id}}</a></td>
+                <td>{{balance.date | date:'medium'}}</td>
+                <td>{{balance.amount}}</td>
+                <td>
+                    <div *ngIf="balance.ledger">
+                        <a [routerLink]="['/ledger', balance.ledger?.id, 'view' ]" >{{balance.ledger?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group">
+                        <button type="submit"
+                                [routerLink]="['/balance', balance.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/balance', balance.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit" (click)="delete(balance)"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,23 @@
+{
+  "accountingApp": {
+    "owner": {
+      "home": {
+        "title": "Owners",
+        "createLabel": "Owner erstellen",
+        "createOrEditLabel": "Owner erstellen oder bearbeiten",
+        "notFound": "No Owners found"
+      },
+      "created": "Owner erstellt mit ID {{ param }}",
+      "updated": "Owner aktualisiert mit ID {{ param }}",
+      "deleted": "Owner gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll Owner {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "Owner"
+      },
+      "name": "Name",
+      "ledger": "Ledger"
+    }
+  }
+}

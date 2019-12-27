@@ -1,0 +1,25 @@
+{
+  "accountingApp": {
+    "ledger": {
+      "home": {
+        "title": "Ledgers",
+        "createLabel": "Ledger erstellen",
+        "createOrEditLabel": "Ledger erstellen oder bearbeiten",
+        "notFound": "No Ledgers found"
+      },
+      "created": "Ledger erstellt mit ID {{ param }}",
+      "updated": "Ledger aktualisiert mit ID {{ param }}",
+      "deleted": "Ledger gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll Ledger {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "Ledger"
+      },
+      "name": "Name",
+      "description": "Description",
+      "creationDate": "Creation Date",
+      "owner": "Owner"
+    }
+  }
+}
