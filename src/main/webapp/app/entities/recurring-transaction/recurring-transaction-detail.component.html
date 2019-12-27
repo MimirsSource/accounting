@@ -1,0 +1,47 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="recurringTransaction">
+            <h2><span jhiTranslate="accountingApp.recurringTransaction.detail.title">Recurring Transaction</span> {{recurringTransaction.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="accountingApp.recurringTransaction.name">Name</span></dt>
+                <dd>
+                    <span>{{recurringTransaction.name}}</span>
+                </dd>
+                <dt><span jhiTranslate="accountingApp.recurringTransaction.amount">Amount</span></dt>
+                <dd>
+                    <span>{{recurringTransaction.amount}}</span>
+                </dd>
+                <dt><span jhiTranslate="accountingApp.recurringTransaction.dateOfMonth">Date Of Month</span></dt>
+                <dd>
+                    <span>{{recurringTransaction.dateOfMonth}}</span>
+                </dd>
+                <dt><span jhiTranslate="accountingApp.recurringTransaction.fromLedger">From Ledger</span></dt>
+                <dd>
+                    <div *ngIf="recurringTransaction.fromLedger">
+                        <a [routerLink]="['/ledger', recurringTransaction.fromLedger?.id, 'view']">{{recurringTransaction.fromLedger?.id}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="accountingApp.recurringTransaction.toLedger">To Ledger</span></dt>
+                <dd>
+                    <div *ngIf="recurringTransaction.toLedger">
+                        <a [routerLink]="['/ledger', recurringTransaction.toLedger?.id, 'view']">{{recurringTransaction.toLedger?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/recurring-transaction', recurringTransaction.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

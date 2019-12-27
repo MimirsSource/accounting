@@ -1,0 +1,26 @@
+{
+  "accountingApp": {
+    "recurringTransaction": {
+      "home": {
+        "title": "Recurring Transactions",
+        "createLabel": "Recurring Transaction erstellen",
+        "createOrEditLabel": "Recurring Transaction erstellen oder bearbeiten",
+        "notFound": "No Recurring Transactions found"
+      },
+      "created": "Recurring Transaction erstellt mit ID {{ param }}",
+      "updated": "Recurring Transaction aktualisiert mit ID {{ param }}",
+      "deleted": "Recurring Transaction gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll Recurring Transaction {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "Recurring Transaction"
+      },
+      "name": "Name",
+      "amount": "Amount",
+      "dateOfMonth": "Date Of Month",
+      "fromLedger": "From Ledger",
+      "toLedger": "To Ledger"
+    }
+  }
+}

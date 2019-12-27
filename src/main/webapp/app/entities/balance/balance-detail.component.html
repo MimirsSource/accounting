@@ -1,0 +1,37 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="balance">
+            <h2><span jhiTranslate="accountingApp.balance.detail.title">Balance</span> {{balance.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="accountingApp.balance.date">Date</span></dt>
+                <dd>
+                    <span>{{balance.date}}</span>
+                </dd>
+                <dt><span jhiTranslate="accountingApp.balance.amount">Amount</span></dt>
+                <dd>
+                    <span>{{balance.amount}}</span>
+                </dd>
+                <dt><span jhiTranslate="accountingApp.balance.ledger">Ledger</span></dt>
+                <dd>
+                    <div *ngIf="balance.ledger">
+                        <a [routerLink]="['/ledger', balance.ledger?.id, 'view']">{{balance.ledger?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/balance', balance.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

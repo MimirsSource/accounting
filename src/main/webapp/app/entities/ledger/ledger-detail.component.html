@@ -1,0 +1,41 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="ledger">
+            <h2><span jhiTranslate="accountingApp.ledger.detail.title">Ledger</span> {{ledger.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="accountingApp.ledger.name">Name</span></dt>
+                <dd>
+                    <span>{{ledger.name}}</span>
+                </dd>
+                <dt><span jhiTranslate="accountingApp.ledger.description">Description</span></dt>
+                <dd>
+                    <span>{{ledger.description}}</span>
+                </dd>
+                <dt><span jhiTranslate="accountingApp.ledger.creationDate">Creation Date</span></dt>
+                <dd>
+                    <span>{{ledger.creationDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="accountingApp.ledger.owner">Owner</span></dt>
+                <dd>
+                    <div *ngIf="ledger.owner">
+                        <a [routerLink]="['/owner', ledger.owner?.id, 'view']">{{ledger.owner?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/ledger', ledger.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
