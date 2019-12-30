@@ -36,6 +36,9 @@ public class Ledger implements Serializable {
     @JsonIgnoreProperties("ledgers")
     private Owner owner;
 
+    @Column(name = "ledger_type", nullable = false)
+    private String ledgerType;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -97,6 +100,14 @@ public class Ledger implements Serializable {
         this.owner = owner;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
+
+    public String getLedgerType() {
+        return ledgerType;
+    }
+
+    public void setLedgerType(String ledgerType) {
+        this.ledgerType = ledgerType;
+    }
 
     @Override
     public boolean equals(Object o) {

@@ -95,8 +95,7 @@ public class TransactionResourceIT {
         Transaction transaction = new Transaction()
             .name(DEFAULT_NAME)
             .amount(DEFAULT_AMOUNT)
-            .date(DEFAULT_DATE)
-            .initial(DEFAULT_INITIAL);
+            .date(DEFAULT_DATE);
         return transaction;
     }
     /**
@@ -109,8 +108,7 @@ public class TransactionResourceIT {
         Transaction transaction = new Transaction()
             .name(UPDATED_NAME)
             .amount(UPDATED_AMOUNT)
-            .date(UPDATED_DATE)
-            .initial(UPDATED_INITIAL);
+            .date(UPDATED_DATE);
         return transaction;
     }
 
@@ -137,7 +135,6 @@ public class TransactionResourceIT {
         assertThat(testTransaction.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testTransaction.getAmount()).isEqualTo(DEFAULT_AMOUNT);
         assertThat(testTransaction.getDate()).isEqualTo(DEFAULT_DATE);
-        assertThat(testTransaction.isInitial()).isEqualTo(DEFAULT_INITIAL);
     }
 
     @Test
@@ -218,8 +215,6 @@ public class TransactionResourceIT {
     @Transactional
     public void checkInitialIsRequired() throws Exception {
         int databaseSizeBeforeTest = transactionRepository.findAll().size();
-        // set the field null
-        transaction.setInitial(null);
 
         // Create the Transaction, which fails.
 
@@ -248,7 +243,7 @@ public class TransactionResourceIT {
             .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE.toString())))
             .andExpect(jsonPath("$.[*].initial").value(hasItem(DEFAULT_INITIAL.booleanValue())));
     }
-    
+
     @Test
     @Transactional
     public void getTransaction() throws Exception {
@@ -289,8 +284,7 @@ public class TransactionResourceIT {
         updatedTransaction
             .name(UPDATED_NAME)
             .amount(UPDATED_AMOUNT)
-            .date(UPDATED_DATE)
-            .initial(UPDATED_INITIAL);
+            .date(UPDATED_DATE);
 
         restTransactionMockMvc.perform(put("/api/transactions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -304,7 +298,6 @@ public class TransactionResourceIT {
         assertThat(testTransaction.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testTransaction.getAmount()).isEqualTo(UPDATED_AMOUNT);
         assertThat(testTransaction.getDate()).isEqualTo(UPDATED_DATE);
-        assertThat(testTransaction.isInitial()).isEqualTo(UPDATED_INITIAL);
     }
 
     @Test

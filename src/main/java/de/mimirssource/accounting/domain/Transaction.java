@@ -32,10 +32,6 @@ public class Transaction implements Serializable {
     @Column(name = "date", nullable = false)
     private Instant date;
 
-    @NotNull
-    @Column(name = "initial", nullable = false)
-    private Boolean initial;
-
     @OneToOne
     @JoinColumn(unique = true)
     private Ledger fromLedger;
@@ -94,19 +90,6 @@ public class Transaction implements Serializable {
 
     public void setDate(Instant date) {
         this.date = date;
-    }
-
-    public Boolean isInitial() {
-        return initial;
-    }
-
-    public Transaction initial(Boolean initial) {
-        this.initial = initial;
-        return this;
-    }
-
-    public void setInitial(Boolean initial) {
-        this.initial = initial;
     }
 
     public Ledger getFromLedger() {
@@ -172,7 +155,6 @@ public class Transaction implements Serializable {
             ", name='" + getName() + "'" +
             ", amount=" + getAmount() +
             ", date='" + getDate() + "'" +
-            ", initial='" + isInitial() + "'" +
             "}";
     }
 }
